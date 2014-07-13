@@ -1,7 +1,7 @@
 module Weather
 	
 	def stormy?
-		rand(0..1) == 1
+		rand(0..5) == 5
 	end
 end
 
