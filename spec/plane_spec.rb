@@ -12,7 +12,6 @@ let(:plane) {Airplane.new}
 
   end
 
-
   context 'things the plane can do' do
 
     it 'can takeoff' do
@@ -34,7 +33,6 @@ let(:plane) {Airplane.new}
       plane.land!
       expect(plane.status).to eq 'Grounded'
     end
-
   end 
 end 
 
