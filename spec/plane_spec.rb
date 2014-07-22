@@ -2,8 +2,8 @@ require 'plane'
 
 describe Airplane do
 
-let(:plane)          {Airplane.new   }
-let(:airport)        {double :airport}
+let(:plane)          {Airplane.new     }
+let(:airport)        {double :airport  }  
 
   context 'things the plane should be initialised with' do
 
@@ -19,7 +19,8 @@ let(:airport)        {double :airport}
     end
 
     it 'should know if it is grounded' do 
-      plane.land!
+      plane.takeoff!
+      plane.land! 
       expect(plane.status).to eq 'Grounded'
     end 
   end 
@@ -31,33 +32,22 @@ let(:airport)        {double :airport}
       expect(plane).to be_flying
     end 
 
+    it 'can only takeoff if it is grounded' do 
+      plane.takeoff!
+      expect(plane).to be_flying
+      expect{plane.takeoff!}.to raise_error(RuntimeError)
+    end 
+
     it 'can land' do 
+      plane.takeoff!
       plane.land!
       expect(plane).not_to be_flying
     end 
 
-
-    # it 'can request permission from the airport for takeoff' do 
-    #   expect(STDOUT).to receive(:puts).with("Requesting the all clear for takeoff")
-    # end 
-
-    # it 'can takeoff from the airport' do
-    #   plane.land_on(airport)
-    #   expect(plane).to receive(request_permission_for_takeoff)
-    #   expect(airport).to receive(:clear).with(:plane)
-    #   plane.takeoff_from(airport) 
-    # end 
-
-    # it 'can request permission from the airport to land' do 
-    #   expect(STDOUT).to receive(:puts).with("Requesting the all clear for landing")
-    # end 
-
-    # it 'can land into the airport' do 
-    #   plane.takeoff_from(airport)
-    #   expect(plane).to receive(request_permission_for_landing)
-    #   expect(airport).to receive(:clear).with(:plane)
-    #   plane.land_on(airport)
-    # end 
+    it 'can only land if it is flying' do 
+      expect(plane).not_to be_flying
+      expect{plane.land!}.to raise_error(RuntimeError)
+    end 
     
   end 
 end 

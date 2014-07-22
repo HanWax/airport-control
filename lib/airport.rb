@@ -4,7 +4,7 @@ require_relative 'plane'
 class Airport
 include Weather 
 
-DEFAULT_CAPACITY = 50 
+DEFAULT_CAPACITY = 30 
 
 attr_accessor :name 
 
@@ -25,7 +25,7 @@ attr_accessor :name
 	def land(plane)
 		raise 'Airport full, keep on circling' if full? 
 		raise 'Too stormy to land' if stormy? 
-        plane.land!
+        plane.land! rescue nil 
     	planes << plane 
     end
 
