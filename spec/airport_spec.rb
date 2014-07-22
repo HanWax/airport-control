@@ -3,8 +3,8 @@ require 'plane'
 require 'weather'
 
 describe Airport do
-  let(:airport)          {Airport.new       }
-  let(:plane)            {double :airplane  } 
+  let(:airport)          {Airport.new   }
+  let(:plane)            {Airplane.new  } 
   
   context 'taking off and landing' do 
 
@@ -20,12 +20,26 @@ describe Airport do
         expect(airport.planes).to be_empty
       end
 
+      it 'should intialise with a name' do 
+        expect(airport.name).to eq 'Heathrow'
+      end 
+
       it 'should land a plane' do
         airport.land(plane)
         expect(airport.planes).to eq([plane])
       end
 
-      it 'should clear a plane' do 
+      it 'should change the status of the plane to grounded once landed' do 
+        airport.land(plane)
+        expect(plane).not_to be_flying
+      end 
+
+      it 'should change the status of the plane to flying when cleared' do 
+        airport.clear(plane)
+        expect(plane).to be_flying
+      end 
+
+      it 'should clear a plane' do
         airport.clear(plane)
         expect(airport.planes).to be_empty
       end
@@ -52,5 +66,6 @@ describe Airport do
         expect{airport.land(plane)}.to raise_error(RuntimeError)
       end
   end
+
 end
 

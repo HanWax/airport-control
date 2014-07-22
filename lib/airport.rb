@@ -1,12 +1,16 @@
 require_relative 'weather'
+require_relative 'plane'
 
 class Airport
 include Weather 
 
 DEFAULT_CAPACITY = 50 
 
-	def initialize(capacity: DEFAULT_CAPACITY)
-		@capacity = capacity 
+attr_accessor :name 
+
+	def initialize(capacity: DEFAULT_CAPACITY, name: 'Heathrow')
+		@name = name
+        @capacity = capacity 
 		@airport  = []
 	end
 
@@ -21,11 +25,13 @@ DEFAULT_CAPACITY = 50
 	def land(plane)
 		raise 'Airport full, keep on circling' if full? 
 		raise 'Too stormy to land' if stormy? 
+        plane.land!
     	planes << plane 
     end
 
     def clear(plane)
     	raise 'Too stormy to take off' if stormy?
+        plane.takeoff! 
     	planes.delete(plane)
     end
 
