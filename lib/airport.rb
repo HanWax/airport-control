@@ -25,13 +25,13 @@ attr_accessor :name
 	def land(plane)
 		raise 'Airport full, keep on circling' if full? 
 		raise 'Too stormy to land' if stormy? 
-        plane.land! rescue nil 
-    	planes << plane 
+        plane.land! if plane.flying? 
+        planes << plane 
     end
 
     def clear(plane)
     	raise 'Too stormy to take off' if stormy?
-        plane.takeoff! 
+        plane.takeoff! if plane.grounded? 
     	planes.delete(plane)
     end
 

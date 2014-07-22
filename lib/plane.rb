@@ -16,6 +16,10 @@ class Airplane
 		@flying 
 	end
 
+	def grounded?
+		!flying?
+	end 
+
 	def takeoff! 
 		raise 'You are already flying' if flying? 
 		@flying = true 

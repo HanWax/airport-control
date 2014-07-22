@@ -22,6 +22,7 @@ let(:airport)        {double :airport  }
       plane.takeoff!
       plane.land! 
       expect(plane.status).to eq 'Grounded'
+      expect(plane).to be_grounded
     end 
   end 
 
